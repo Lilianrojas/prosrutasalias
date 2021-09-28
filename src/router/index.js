@@ -5,6 +5,7 @@ import Router from "vue-router"
 //import Contacto from "../views/contacto.vue"
 //import Post from "../views/post.vue"
 import Administrador from  "../views/administrador.vue"
+import Inexistente from "../views/inexistente.vue"
 
 
 Vue.use(Router)
@@ -45,12 +46,20 @@ export default new Router ({
             path:'/post',
             component: ()=>import("../views/post.vue"),
             name: "Post",
+            children: [{
+                path:':articulo', // se hace coincidir con cualquier palabra que venga despues del /post
+                component: ()=> import ("../components/articulo.vue")
+            }]
         },
         {
             path:'/administrador/:entrada',
             component: Administrador, 
             props: true,
             name:"Administrador"
-        }    
+        },   
+        {
+            path:'*',
+            component: Inexistente
+        }
     ]
 })
